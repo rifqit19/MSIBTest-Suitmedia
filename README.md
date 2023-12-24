@@ -1,3 +1,4 @@
+# MSIB Test - Suitmedia
 This application is an iOS-based project developed using the Swift programming language. It is specifically designed to meet the internship selection needs for Kampus Merdeka at Suitmedia.
 
 ![Screenshot 2023-12-25 at 3 44 09 AM](https://github.com/rifqit19/MSIBTest-Suitmedia/assets/49423540/4a305a1c-b3c1-4291-b095-4c7a1c2fb93e)
