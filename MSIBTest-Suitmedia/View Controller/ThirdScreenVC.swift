@@ -12,14 +12,17 @@ class ThirdScreenVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var tableview_user: UITableView!
     @IBOutlet weak var emptyStateLabel: UILabel!
     
+    let activityIndicator = UIActivityIndicatorView(style: .medium)
+    
     var users: [User] = []
     var currentPage = 1
-    var perPage = 10
+    var perPage = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupTableView()
+
         loadData()
     }
 
@@ -33,7 +36,8 @@ extension ThirdScreenVC{
         tableview_user.dataSource = self
         tableview_user.delegate = self
         tableview_user.register(UINib(nibName: "UserCell", bundle: nil), forCellReuseIdentifier: "UserCell")
-        tableview_user.tableFooterView = UIView()
+        activityIndicator.hidesWhenStopped = true
+        tableview_user.tableFooterView = activityIndicator
         
         //pull to refresh
         let refreshControl = UIRefreshControl()
@@ -51,8 +55,11 @@ extension ThirdScreenVC{
     }
     
 
+    
+
     //Load data
     func loadData(){
+        activityIndicator.startAnimating()
         ApiHelper.shared.fetchUsers(page: currentPage, perPage: perPage) { [weak self] users, error in
             guard let self = self else { return }
             
@@ -76,6 +83,7 @@ extension ThirdScreenVC{
                     self.emptyStateLabel.isHidden = !self.users.isEmpty
                 }
             }
+            self.activityIndicator.stopAnimating()
         }
     }
 
